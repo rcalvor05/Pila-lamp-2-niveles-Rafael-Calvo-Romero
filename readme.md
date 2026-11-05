@@ -70,7 +70,9 @@ ponemos este contenido
 
 `git clone https://github.com/josejuansanchez/iaw-practica-lamp.git /tmp/app` ⟶ Descarga la aplicación. Se hace en este momento porque la máquina todavía tiene Internet; después se le quita.
 
-`mysql < /tmp/app/db/database.sql` ⟶ Ejecuta el script SQL de la aplicación, que crea la base de datos y la tabla de usuarios.
+`mysql -e "CREATE DATABASE IF NOT EXISTS lamp_db;"` --> Crea la base de datos de la aplicación, ya que el script SQL solo crea la tabla.
+
+`mysql lamp_db < /tmp/app/db/database.sql` --> Ejecuta el script SQL de la aplicación dentro de la base de datos `lamp_db`, creando la tabla `users`.
 
 `mysql -e "CREATE USER IF NOT EXISTS 'lamp_user'@'192.168.10.%' IDENTIFIED BY 'lamp_password';"` ⟶ Crea el usuario que usará la aplicación para conectarse. Con `192.168.10.%` solo puede conectarse desde la red interna, es decir, desde Apache.
 
@@ -136,3 +138,7 @@ El archivo `config.php` de la aplicación viene preparado para tener la base de 
 `chown -R www-data:www-data /var/www/html` --> Hace propietario de los archivos al usuario `www-data`, que es con el que se ejecuta Apache.
 
 `systemctl restart apache2` --> Reinicia Apache para aplicar todos los cambios.
+
+
+
+**Ahora haremos un vagrant up**

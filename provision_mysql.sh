@@ -10,7 +10,9 @@ systemctl restart mariadb
 
 rm -rf /tmp/app
 git clone https://github.com/josejuansanchez/iaw-practica-lamp.git /tmp/app
-mysql < /tmp/app/db/database.sql
+
+mysql -e "CREATE DATABASE IF NOT EXISTS lamp_db;"
+mysql lamp_db < /tmp/app/db/database.sql
 
 mysql -e "CREATE USER IF NOT EXISTS 'lamp_user'@'192.168.10.%' IDENTIFIED BY 'lamp_password';"
 mysql -e "GRANT ALL PRIVILEGES ON lamp_db.* TO 'lamp_user'@'192.168.10.%';"
